@@ -1,3 +1,5 @@
+![Joffre Lakes Provincial Park](header.png)
+
 # INTRO
 
 British Colombia has day-use pass for some popular parks. Sometimes it's difficult to get them 
@@ -37,8 +39,12 @@ How many tickets (up-to 4) was available at this moment for current and next 2 d
 Gap if script was not running at some time and log is inconsistent
 
 Output is 4 files:
-`log.df` - panda dataframe file which can be used for testing instead of re-processing log file each time
-`plot.png` - plot for full period and each available day available in `log.txt`
-`plot-2023-08-05.png` - plot for full period, but only for 2023-08-05 passes
-`plot-2023-08-05.png` - plot for limited period (`2023-08-04 00:00:00 - 2023-08-04 08:00:00`) 
-and only for 2023-08-06 passes 
+- `log.df` - panda dataframe file which can be used for testing instead of re-processing log file each time
+- `plot.png` - plot for full period and each available day available in `log.txt`
+![plot.png](plot.png)
+- `plot-2023-08-05.png` - plot for full period, but only for 2023-08-05 passes
+![plot-2023-08-05.png](plot-2023-08-05.png)
+- `plot-2023-08-05.png` - plot for limited period (`2023-08-04 00:00:00 - 2023-08-04 08:00:00`) 
+and only for 2023-08-06 passes
+![plot-2023-08-05.png](plot-2023-08-05.png)
+
