@@ -46,6 +46,10 @@ help()
 
 			-h | --help:
 				show this help message
+
+		Example:
+			search for tickets on Garibaldi-Diamond for September 2nd and 3rd:
+			$ ./JoffreLakes.sh -d2023-09-02 -s2023-09-03 -p2
 			"
 	exit 2
 }
@@ -120,6 +124,7 @@ fi
 ############### PARK #############
 ## checking and confirming park value
 ## got them based on API request here: https://reserve.bcparks.ca/dayuse/
+HEADERS="-H 'sec-ch-ua: \"Google Chrome\";v=\"117\", \"Not;A=Brand\";v=\"8\", \"Chromium\";v=\"117\"'   -H 'Accept: application/json, text/plain, */*'   -H 'Referer: https://reserve.bcparks.ca/'   -H 'sec-ch-ua-mobile: ?0'   -H 'User-Agent: Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'   -H 'sec-ch-ua-platform: \"Chrome OS\"'   --compressed"
 URL_BASE="https://jd7n1axqh0.execute-api.ca-central-1.amazonaws.com/api/reservation?"
 
 case "$PARK" in
@@ -202,11 +207,12 @@ echo "if you didn't hear a beep sound, please check your speakers and try to run
 	"
 
 while true; do
-	curl $URL 2>/dev/null | tee -a $LOG
+	echo curl \'$URL\' $HEADERS | bash 2>/dev/null | tee -a $LOG
+	echo -n ",${PARK_NAME}," | tee -a $LOG
 	date | tee -a $LOG
 	
-	(tail -1 $LOG | grep "\"${DATE}\":{\"DAY\":{\"capacity\":\"Low\"") && echo "Found passes for $DATE !!!" && beep >/dev/null
-	[ ! -z "$DATE2" ] && (tail -1 $LOG | grep "\"${DATE2}\":{\"DAY\":{\"capacity\":\"Low\"") && echo "Found passes for $DATE2 !!!" && beep >/dev/null
+	(tail -1 $LOG | grep "\"${DATE}\":{\"DAY\":{\"capacity\":\"Low\"") && echo "Found passes for $DATE !!!" && beep
+	[ ! -z "$DATE2" ] && (tail -1 $LOG | grep "\"${DATE2}\":{\"DAY\":{\"capacity\":\"Low\"") && echo "Found passes for $DATE2 !!!" && beep
 	
 	sleep 5
 done
